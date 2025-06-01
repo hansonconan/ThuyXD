@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tỏ Tình</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .text {
+      position: absolute;
+      white-space: nowrap;
+      color: white;
+      font-size: 20px;
+      animation: fall linear;
+      text-shadow: 0 0 10px #ff69b4;
+    }
+
+    .heart-small {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 18px;
+      animation: fall linear, pulse-small 1.5s infinite;
+      text-shadow: 0 0 10px red;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    @keyframes pulse-small {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Phát nhạc nền -->
+  <audio autoplay loop hidden>
+    <source src="SOOBIN - Dancing In The Dark - 'BẬT NÓ LÊN' Album (Official MV) (mp3cut.net).mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát âm thanh.
+  </audio>
+
+  <!-- Các lớp hiệu ứng -->
+  <div class="layer" id="stars"></div>
+  <div class="layer" id="layer1"></div>
+  <div class="layer" id="layer2"></div>
+  <div class="layer" id="layer3"></div>
+  <div class="layer" id="layer4"></div>
+
+  <script>
+    const messages = [
+      "Gửi đến em ...",
+      "Chúc iemm bé Thuý XĐ của anh 1/6 vui vẻ, hạnh phúc.",
+      "Mỗi ngày trôi qua đều luôn vui tươi em nhó ",
+      "Anh mong những điều tốt đẹp và may mắn sẽ đến với em"
+    ];
+
+    function createFallingText(layerId, speed) {
+      const layer = document.getElementById(layerId);
+      setInterval(() => {
+        const text = document.createElement("div");
+        text.className = "text";
+        text.innerText = messages[Math.floor(Math.random() * messages.length)];
+        text.style.left = Math.random() * window.innerWidth + "px";
+        text.style.animationDuration = speed + "s";
+        text.style.fontSize = (18 + Math.random() * 6) + "px";
+        layer.appendChild(text);
+        setTimeout(() => text.remove(), speed * 1000);
+      }, 600);
+    }
+
+    function createFallingHeart(layerId, speed) {
+      const layer = document.getElementById(layerId);
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart-small";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = speed + "s";
+        heart.style.fontSize = (16 + Math.random() * 10) + "px";
+        layer.appendChild(heart);
+        setTimeout(() => heart.remove(), speed * 1000);
+      }, 400);
+    }
+
+    function createStars(num) {
+      const starsLayer = document.getElementById("stars");
+      for (let i = 0; i < num; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.animationDuration = (1 + Math.random() * 2) + "s";
+        star.style.width = star.style.height = (1 + Math.random() * 2) + "px";
+        starsLayer.appendChild(star);
+      }
+    }
+
+    // Hiệu ứng
+    createFallingText("layer1", 5);
+    createFallingHeart("layer1", 5);
+
+    createFallingText("layer2", 7);
+    createFallingHeart("layer2", 7);
+
+    createFallingText("layer3", 10);
+    createFallingHeart("layer3", 10);
+
+    createFallingText("layer4", 13);
+    createFallingHeart("layer4", 13);
+
+    createStars(100);
+  </script>
+</body>
+</html>
